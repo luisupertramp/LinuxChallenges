@@ -1,0 +1,37 @@
+Find all regular files not owned by root
+    $ find -type f -not -user root -ls
+
+Find all regular files in /etc modified within the last 60 minutes
+    $ sudo find /etc/ -type f -mmin -60 -ls
+
+Find all regular files in /var that are bigger than 2Mb
+    $ find /var/ -type f -size +2M -ls
+
+Find all files that have change in the last 5 minutes and remove them
+    $ find . -type f -mmin -5 -ls -delete
+
+Display the contents of /etc in a single column
+    $ ls /etc/ --format=single-column
+
+Display the contents of /var/log/ sorted by size in a human readable format
+    $ ls -Slh /var/log
+
+Show in real time the users that are logging in the shell from the auth.log file
+    $ tail -f /var/log/auth.log
+
+Create a new user with useradd command specifying home directory, bash shell and a comment
+    $ sudo useradd -c "another test" -m -s /bin/bash fullUser
+
+Create a new group using groupadd command and then add the new user to the new group
+    $ sudo groupadd newGroup
+    $ sudo usermod -aG newGroup fullUSer
+
+Make the new user an admin
+    $ sudo usermod -aG sudo
+
+Remove the new groups and users
+    $ sudo userdel -r fullUser
+    $ sudo deluser fullUser (alternative option to delete groups as well)
+    $ sudo groupdel newGroup
+
+
