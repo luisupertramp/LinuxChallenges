@@ -1,0 +1,43 @@
+Create a new file and remove all permissions for 'Others'
+    $ echo "This is Ubuntu" > ubuntu.txt
+    $ chmod o-r ubuntu.txt
+
+Remove the read permission from the Owner and check if the owner can read the file
+    $ chmod u-r ubuntu.txt
+    A: No, it can't read it
+
+Using the octal notation, set the permissions of the directory to rwxrwx--- and of the file to rw-r-----
+    $ chmod 770 .
+    $ chmod 640 ubuntu.txt 
+
+Set the permissions of the directory to 0667. Check if the user (owner) can list its contents, move to the directory and remove it.
+    $ chmod 667 .
+    A: No, files are not visible
+
+Set the permissions of all the files in the user's home directory to 0640 and the permissions of all directories to 0750.
+    $ find ~/ -type f -exec chmod 0640 {} \;
+    $ find ~/ -type d -exec chmod 0750 {} \;
+
+As root set SUID to ls and list the contents of /root again as a non-privileged user.
+    $ sudo chmod 4755 /usr/bin/ls
+
+As root remove the SUID bit.
+    $ sudo chmod u-s /usr/bin/ls
+
+Set the directory permissions to 0777 and the file permissions to 0000. As another non-privileged user, try to remove the file.
+    $ chmod 0777 linux/
+    $ chmod 000 linux/ubuntu.txt
+    $ su usr1
+    $ rm ubuntu.txt
+    A: Yup, file was super deleted
+
+Create a new file in the directory and set its permissions to 0644. Set the Sticky Bit on the directory.
+    $ touch linux/newFile.txt
+    $ chmod 1777 linux
+
+As another non-privileged user, try to remove the file.
+    $ su usr1
+    $ rm newFile.txt
+    A: rm: remove write-protected regular empty file 'newFile.txt'? y
+    A: rm: cannot remove 'newFile.txt': Operation not permitted
+    A: This time the new file could not be deleted
