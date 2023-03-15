@@ -1,0 +1,45 @@
+List all running processes.
+    $ ps -ef
+
+Check if a process named bash is running (use both ps and pgrep).
+    $ ps -ef | grep bash
+	supertr+   12117    6183  0 10:36 pts/0    00:00:00 bash
+	supertr+   12390    6183  0 10:50 pts/1    00:00:00 bash
+	supertr+   15322    6183  0 16:48 pts/2    00:00:00 bash
+	supertr+   19262    6183  0 22:31 pts/3    00:00:00 bash
+    $ pgrep -a bash
+	12117 bash
+	12390 bash
+	15322 bash
+	19262 bash
+
+Using the ps command list all processes sorted by memory in reverse order. Redirect the output to a file called processes.txt
+    $ ps aux --sort=-%mem > processes.txt
+
+Generate a text file that contains 3 runs (refreshes) of top with a delay of 1 second.
+    $ top -d 1 -n 3 -b > Desktop/topIntervals.txt
+
+Using the kill command send the default signal (SIGTERM - 15) to the current terminal.
+    $ kill 19386
+
+Start a graphical application like gedit or firefox. Find its PID and send the SIGINT (2) signal to the application.
+    $ kill -2 $(pgrep spotify) 
+
+Start a graphical application like gedit from a terminal in the background. Kill the application using pkill.
+    $ spotify &
+    $ pkill spot
+
+Run a command that takes some time to complete like ls -lR / in the foreground. After a few seconds stop (pause) the command by pressing Ctrl + Z.
+Print its JOBID and PID and resume the command in the foreground.
+    $ ls -lR
+    $ Ctrl+Z
+    $ jobs
+    $ fg 1
+
+Run sleep 100 in the background.
+Close the terminal, open it again and check if the process is still running.
+If it’s not running, run sleep 100 again making it immune to the closing terminal.
+    $ sleep 100 &
+    A: Not running after closing the terminal
+    $ nohup sleep 100 &
+    A: Job still running after closing the terminal
