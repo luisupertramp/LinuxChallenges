@@ -1,0 +1,27 @@
+List the IP address, the Default Gateway, the Mac Address and the DNS Servers.
+Use both ifconfig and ip commands.
+    $ ip a s
+    $ ifconfig
+    $ ip route s
+    $ route -n
+    $ resolvectl
+
+Using ifconfig, disable the Ethernet interface.
+Using ip, enable the Ethernet interface.
+Check its status both with ifconfig and ip.
+    $ sudo ifconfig enp0s3 down
+    $ sudo ip link set enp0s3 up
+    $ ip link show enp0s3
+    $ ifconfig enp0s3
+
+Set a new temporary IP address using both ip and ifconfig.
+    $ sudo ifconfig enp0s3 192.168.0.2/24 up
+    $ sudo ip a del 192.168.0.102/24 dev enp0s3 
+    $ sudo ip a add 192.168.0.103/24 dev enp0s3
+
+Using ifconfig, set a secondary IP address on the Ethernet interface.
+    $ sudo ifconfig enp0s3:2 192.168.1.102/24 up
+
+Change the MAC address to a random one.
+    $ sudo ip link set dev enp0s3 address 08:00:28:90:99:e3
+
