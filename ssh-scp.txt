@@ -1,0 +1,20 @@
+Secure the SSH Daemon:
+  * Change the listening Port to 2266
+  * Allow only a single non-privileged user to connect to the SSH server
+  * Disable root login entirely.
+
+    in /etc/ssh/sshd.config:
+
+    Port 2266
+    MaxSessions 1
+    PermitRootLogin no
+
+
+Create a directory and a file in the user’s home directory.
+Using scp, copy both the file and the directory to the remote Linux VM where the SSH daemon is running.
+    $ mkdir -p scpTest/file1.txt
+    $ scp -P 2266 -r scpTest/ supertramp@192.168.0.103:~ 
+  
+Using scp, copy a file from the remote VM where the SSH daemon is running to the local machine, in the current directory.
+    $ scp -P 2266 supertramp@192.168.0.102:~/scpTest/file1.txt ~
+
