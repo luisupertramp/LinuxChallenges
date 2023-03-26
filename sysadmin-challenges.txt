@@ -1,0 +1,91 @@
+Challenge #1
+
+    For the currently logged-in user, create a cron job that writes the current date and time to a file every 3 minutes.
+	$ crontab -e
+	    3 * * * * date >> currentDate.txt
+ 
+
+Challenge #2
+
+    Create a cron job that runs as root and fully upgrades the system every Sunday at 5:10 AM
+	$ sudo crontab -e
+	    10 5 * * 0 apt update && apt full.upgrade -y
+ 
+
+Challenge #3
+
+    Identify the partition where the root file system (/) is mounted.
+	$ df -h
+
+    Create a directory on the Desktop and mount that partition there as well.
+	$ mkdir ~/Desktop/newRoot
+ 	$ mount /dev/sda3 ~/Desktop/newRoot/
+
+
+Challenge #4
+
+    Consider an iso file and mount it to a directory in the user's home directory.
+	$ mkdir ~/isoTest
+	$ mount ~/Downloads/slides.iso ~/isoTest -o loop
+
+
+Challenge #5
+
+    Install the nginx web server.
+	$ sudo apt update && sudo apt install ngnix
+
+    Check that it’s running.
+	$ systemctl status nginx
+
+    Set the server NOT to start automatically when the computer boots up.
+	$ systectl disable nginx
+
+
+Challenge #6
+
+    Generate an HTML file that contains complete hardware information.
+	$ sudo lshw -html > completeHW.html
+ 
+
+Challenge #7
+
+    Find out what is the maximum RAM memory that can be installed on the system.
+	$ sudo dmidecode -t memory | grep -i "maximum capacity"
+
+    Find out the amount of RAM memory that is already installed on the system.
+	$ sudo dmidecode -t memory | grep -i "size"
+
+    Display the amount of RAM memory that is free and used (by the running system).
+	$ free
+
+
+Challenge #8
+
+    Display as much information as possible about the WiFi card.
+    Note: You should run the commands on a system where Linux runs as the main OS.
+	$ iw list
+
+
+Challenge #9
+
+    Display as much information as possible about the hard disks.
+	$ sudo fdisk -l
+
+
+Challenge #10
+
+    Benchmark the read speeds performance of the disks installed on your system.
+	$ sudo hdparm -t --direct /dev/nvme0n1
+		/dev/nvme0n1:
+		 Timing O_DIRECT disk reads: 2330 MB in  3.00 seconds = 776.08 MB/sec
+	$ sudo hdparm -t --direct /dev/sda
+
+		/dev/sda:
+		 Timing O_DIRECT disk reads: 304 MB in  3.00 seconds = 101.23 MB/sec
+
+
+Challenge #11
+
+    On a laptop, run a command that will display information about the battery status.
+	$ acpi -bi
+
