@@ -1,0 +1,98 @@
+Challenge #1
+
+    Suppose you connect frequently to a server located in a remote data center by running: ssh -l u123h -p 9956 191.169.0.1 
+    Create an alias named main for the command and make it persistent after reboot.
+
+	$ sudo vim ~/-bashrc
+	    alias main=ssh -l u123h -p 9956 191.169.0.1 
+
+
+Challenge #2
+
+    Create a Bash script named script1.sh. Add the shebang.
+    Define a variable called country that holds the country you are living in.
+    Print the message: You live in YOUR_COUNTRY.
+    Run the script in different ways.
+
+	$ vim script1.sh
+	    #!/bin/bash
+ 	    echo "You live in México"
+	
+	$ bash script1.sh
+	$ source script1.sh
+
+
+Challenge #3
+
+    Create a script and define two string variables.
+    Add a commented line after the shebang and another inline comment.
+    Create a new variable by concatenating the two string variables.
+    Run the script.
+
+	$ vim strings.sh
+
+	    #!/bin/bash
+	    
+	    # Just a regular comment
+	    os=Linux
+	    course=DevOps # In ztm ;)
+
+	    studying="I am currently working on $os, doing the course $course"
+	    echo "$studying"
+
+	$ source ./strings.sh
+ 
+
+Challenge #4
+ 
+    Develop a Bash script that creates a new group and a new username.  The group will be the user’s secondary group.
+    The username and the group will be given as input by the user that runs the script.
+    The script will also display the last 2 lines from the files where the users and the groups are saved in Linux.
+    Test the script by running it as root.
+
+	$ vim users.sh
+	
+	    #!/bin/bash
+	
+	    echo -n "Enter the username: "
+	    read username
+	    echo -n "Enter the groupname: "
+	    read groupname
+
+	    sudo groupadd $groupname
+	    sudo useradd -m $username -G $groupname -s /bin/bash
+
+	    echo "#################"
+ 	    tail -n 2 /etc/passwd
+
+	    echo "#################"
+	    tail -n 2 /etc/group
+
+	$ sudo bash users.sh
+
+
+Challenge #5
+
+    Create a script called fix_permissions.sh that prompts the user for a directory and changes the permissions of all subdirectories to 755 and to all files to 644 recursively.
+
+	$ vim fix_permissions.sh
+
+	    #!/bin/bash
+
+	    echo -n "Specify the directory you want to fix"
+	    read directory
+
+	    if [ -f "$directory" ]
+	    then    
+
+        	find $directory -type f -exec chmod -R 644 {} \;
+	        find $directory -type d -exec chmod -R 755 {} \;
+        
+	    else    
+	        echo "WARNING: The directory specified is not correct or doesn't exist"
+        
+	    fi      
+
+
+
+
