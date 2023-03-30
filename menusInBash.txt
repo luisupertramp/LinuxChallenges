@@ -1,0 +1,94 @@
+Challenge #1
+
+Create a function called now that prints out the current date and type in the format: YYYY-MM-DD HH:MM:SS
+Call the function.
+
+    $ vim 1_date.sh
+
+	#!/bin/bash
+	now () {
+	        date "+%Y-%m-%d %H:%M:%S" 
+	}       
+	now
+
+
+Challenge #2
+
+Create a function called rectangle_area that takes 2 arguments:  width and height.
+The function computes and prints out the area of the rectangle.
+Call the function with different arguments.
+
+    $ vim 2_rectangle.sh
+
+	#!/bin/bash
+
+	rectangleArea () {
+        	echo "The area is: $(( $1*$2 ))"
+	}
+	
+	read -p "Enter the width: " w
+	read -p "Enter the height: " h
+
+	rectangleArea $w $h
+
+
+Challenge #3
+
+Create a Bash Menu with the following entries:
+Display Date and Time
+List users logged in
+Display disk usage
+Change the Menu Prompt to the string Choose:
+Implement each entry in the menu using the if...elif..else statements.
+
+    $ vim 3_menuCommands.sh 
+
+	#!/bin/bash
+
+	PS3="Choose: "
+	
+	select option in "Display Date and Time" "List users logged in" "Display Disk Usage"
+	do
+	        if [[ $REPLY -eq 1 ]]
+	        then
+	                date "+%D %H:%M"
+	        elif [[ $REPLY -eq 2 ]]
+	        then
+	                who
+	        elif [[ $REPLY -eq 3 ]]
+	        then    
+	                df
+	        else
+	                echo "ERROR: Wrong option"
+        	fi
+	done
+ 
+
+Challenge #4
+
+Change the solution from the previous challenge so that you use case instead of if...elif..else to implement the menu entries.
+
+    $ vim 4_menuCommands.sh 
+
+	#!/bin/bash
+
+	PS3="Choose: "
+
+	select option in "Display Date and Time" "List users logged in" "Display Disk Usage"
+	do
+	        case $REPLY in
+	                1)
+	                        date "+%D %H:%M"
+	                        ;;
+	                2)      
+	                        who
+	                        ;;
+	                3)
+	                        df
+	                        ;;
+	                *)
+	                        echo "ERROR: Wrong option"
+	                        ;;
+	        esac
+	done
+
