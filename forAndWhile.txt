@@ -1,0 +1,184 @@
+Challenge #1
+
+Consider the following variable:  friends="Anne John Jenna Arena Paul Dan"
+Create a script that uses a simple for loop and says Hello to each friend in the list.
+
+    $ vim 1_HelloAll.sh 
+
+	#!/bin/bash
+
+	friends="Anne John Jenna Arena Paul Dan"
+	for friend in $friends 
+	do
+	        echo "Hello $friend"
+	done
+ 
+
+Challenge #2
+
+Create a script that prompts the user for a file. Test that it’s a file.
+Prompt the user for 2 positive integers n and m.
+Display the lines (from line number n to m, both inclusive) of the text file.
+
+    $ vim 2_fileReader.sh
+
+	#!/bin/bash
+	read -p "Enter a file: " newFile
+	read -p "Enter the starting ine: " line1
+	read -p "Enter the ending line: " line2
+
+	i=0
+
+	if [[ -f $newFile ]]
+	then
+        	for line in $(cat $newFile)
+	        do
+	                let i=i+1
+	                if [[ $i -ge $line1 ]] && [[ $i -le $line2 ]]
+	                then
+	                        echo "$line"
+	                fi
+	        done
+	else
+	        echo "File incorrect or doesn't exist"
+	fi
+
+
+Challenge #3
+
+Create a script that displays odd numbers between 1 and 50. 
+
+    $ vim 3_oddNumbers.sh
+
+	#!/bin/bash
+
+	for number in {1..50}
+	do      
+	        if [[ $((number%2)) -eq 0  ]]
+	        then
+	                echo "$number"
+	        fi
+	done
+
+
+Challenge #4
+
+Develop a script that will create 5 text files in the current directory.
+
+    $ vim 4_createFiles.sh
+
+	#!/bin/bash
+	for i in {1..5}
+	do      
+	        touch "file_$i.txt"
+	done    
+
+
+Challenge #5
+
+Develop a script that prompts the user for a number n and then creates n text files in the current directory.
+
+    $ vim 5_createFiles.sh
+
+	#!/bin/bash
+	
+	read -p "Insert the number of files to create: " files
+	
+	for (( i=1 ; i <= $files ; i++ ))
+	do
+	        touch "file_$i.txt"
+	done
+
+
+Challenge #6
+
+Consider the solution from the previous challenge. Add a testing condition so that the user enters a positive integer less than 100.
+
+    $ vim 6_createFiles.sh 
+
+	#!/bin/bash
+
+	read -p "Insert the number of files to create: " files
+	
+	if [[ $files -gt 0 ]] && [[ $files -lt 100 ]]
+	then
+	        for (( i=1 ; i <= $files ; i++ ))
+	        do
+	                touch "file_$i.txt"
+	        done
+	else    
+	        echo "Error: Amount of files not allowed (range is between 0 and 100)"
+	fi    
+
+
+Challenge #7
+
+Consider the solution from the previous challenge. 
+Change the script so that it creates a file every 3 seconds and the name of each file will be current_minute_second
+
+    $ vim 7_createFiles.sh  
+
+	#!/bin/bash
+
+	read -p "Insert the number of files to create: " files
+	
+	if [[ $files -gt 0 ]] && [[ $files -lt 100 ]]
+	then
+	        for (( i=1 ; i <= $files ; i++ ))
+	        do
+	                echo "Creating file #$i..."
+	                sleep 3
+	                touch "$(date +%M_%S).txt"
+	        done
+	else
+	        echo "Error: Amount of files not allowed (range is between 0 and 100)"
+	fi
+
+
+
+Challenge #8
+
+Create a script that takes some IP addresses as arguments and sends one ping packet to each ip address.
+
+    $ vim 8_pings.sh
+
+	#!/bin/bash
+
+	for argument in $*
+	do
+	        ping -c 1 $argument
+	done
+
+
+Challenge #9
+
+Change the solution from the previous challenge so that the script reads the IP addresses from a text file that is given by the user.
+
+    $ vim 9_pings.sh
+
+	#!/bin/bash
+
+	read -p "Enter the file name that contains the IP addresses: " file
+	
+	for ip in $(cat $file)
+	do
+	        ping -c 1 $ip
+	done
+
+ 
+
+Challenge #10
+
+Create a script that takes 3 arguments: a file extension, a source directory, and a destination directory given as absolute or relative paths to the script. The script will copy all the files with that extension from the source directory to the destination directory.
+
+Example: ./copy_files.sh png ~/images ~/backup/images
+
+    $ vim 10_copyFiles.sh
+
+	#!/bin/bash
+	if [[ $# -eq 3 ]]
+	then    
+	        cp $2*.$1 $3
+	else    
+        	echo "ERROR: This script takes exactly 3 arguments"
+	fi  
